@@ -7,7 +7,7 @@ import random
 import disnake
 from bot import ext
 from bot.config import Config
-from bot.quiz.tribes import Tribe, tribes
+from bot.quiz.tribes import Tribe
 
 
 class Quiz:
@@ -52,43 +52,18 @@ class Quiz:
                 inline=False,
             )
 
-            # ask the question and place the buttons for answer selection
-            view = disnake.ui.View()
-            view.add_item(
-                disnake.ui.Button(
-                    label="A",
-                    style=disnake.ButtonStyle.primary,
-                    custom_id=answers[0].split("-")[0],
-                )
-            )
-            view.add_item(
-                disnake.ui.Button(
-                    label="B",
-                    style=disnake.ButtonStyle.primary,
-                    custom_id=answers[1].split("-")[0],
-                )
-            )
-            view.add_item(
-                disnake.ui.Button(
-                    label="C",
-                    style=disnake.ButtonStyle.primary,
-                    custom_id=answers[2].split("-")[0],
-                )
-            )
-            view.add_item(
-                disnake.ui.Button(
-                    label="D",
-                    style=disnake.ButtonStyle.primary,
-                    custom_id=answers[3].split("-")[0],
-                )
-            )
+            # create the answer buttons for the embedded quiz question
+            view = self.create_view(answers)
 
+            # if it's the first question, respond to the interaction with a followup
+            # if it's not the first, update the question/answers for subsequent questions
             if i == 1:
                 # first question
                 await interaction.followup.send(embed=embed, ephemeral=True, view=view)
             else:
                 await response.response.edit_message(embed=embed, view=view)
 
+            # handle the button clicks
             try:
                 button_response = await bot.wait_for(
                     "button_click",
@@ -98,6 +73,7 @@ class Quiz:
                 response = button_response
 
             except asyncio.TimeoutError:
+                # button wasn't clicked fast enough or the ephemeral message was closed
                 if str(author.id) in self.answers:
                     del self.answers[str(author.id)]
 
@@ -107,6 +83,7 @@ class Quiz:
                     view=view.clear_items(),
                 )
 
+            # add the selected answer for later calculations
             tribe = response.component.custom_id
             self.add_answer(author, tribe)
 
@@ -117,14 +94,64 @@ class Quiz:
         # add roles to user
         await self.add_roles(author, [tribe.role, default_role])
 
-        await interaction.edit_original_message(
-            content=f"You completed the quiz!\nI calculated that you belong in the **{tribe.name} tribe** because you are **{tribe.description}**.",
-            embed=None,
-            view=None,
+        # send final message with calculated tribe and external link for twitter oauth
+        # to send tweet about your new tribe
+        embed = self.create_complete_quiz_embed(tribe)
+        view = disnake.ui.View()
+        view.add_item(
+            disnake.ui.Button(label="Share on Twitter!", url=Config.twitter_oauth_url)
         )
+
+        await interaction.edit_original_message(embed=embed, view=view)
 
         # add member to quizzed
         ext.add_quizzed_member(author.id)
+
+    def create_complete_quiz_embed(self, tribe: Tribe) -> disnake.Embed:
+        """Creates the embed for when the quiz is completed"""
+        embed = disnake.Embed(
+            title=f"Welcome to the {tribe.name} Tribe!",
+            description=f"The members of this tribe are:\n{tribe.description}",
+        )
+        embed.set_image(url=tribe.icon_url)
+        embed.set_footer(
+            text="Tweet about your new tribe by following the button below!"
+        )
+        return embed
+
+    def create_view(self, answers: list[str]) -> disnake.ui.View:
+        """Create the view and add answer buttons = Returns a created view"""
+        view = disnake.ui.View()
+        view.add_item(
+            disnake.ui.Button(
+                label="A",
+                style=disnake.ButtonStyle.primary,
+                custom_id=answers[0].split("-")[0],
+            )
+        )
+        view.add_item(
+            disnake.ui.Button(
+                label="B",
+                style=disnake.ButtonStyle.primary,
+                custom_id=answers[1].split("-")[0],
+            )
+        )
+        view.add_item(
+            disnake.ui.Button(
+                label="C",
+                style=disnake.ButtonStyle.primary,
+                custom_id=answers[2].split("-")[0],
+            )
+        )
+        view.add_item(
+            disnake.ui.Button(
+                label="D",
+                style=disnake.ButtonStyle.primary,
+                custom_id=answers[3].split("-")[0],
+            )
+        )
+
+        return view
 
     async def add_roles(
         self, author: disnake.Member, roles: list[disnake.Role]
@@ -165,6 +192,7 @@ class Quiz:
 
         return Tribe(
             name=top_tribe,
-            description=tribes[top_tribe]["description"],
-            role=guild.get_role(int(tribes[top_tribe]["role_id"])),
+            description=Config.tribes[top_tribe]["description"],
+            icon_url=Config.tribes[top_tribe]["icon_url"],
+            role=guild.get_role(int(Config.tribes[top_tribe]["role_id"])),
         )
