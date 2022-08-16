@@ -5,6 +5,7 @@ from disnake import Embed, Game, Intents
 from disnake import __version__ as disnake_version
 from disnake.ext import tasks
 from disnake.ext.commands import InteractionBot
+from loguru import logger
 
 from bot import __version__ as bot_version
 from bot import ext
@@ -42,13 +43,19 @@ async def send_welcome_message() -> None:
     await bot.wait_until_ready()
     # get the welcome channel
     channel = bot.get_channel(int(Config.welcome_channel_id))
+    if channel is None:
+        # channel does not exist or the config file hasn't been updated
+        return logger.critical(
+            "No welcome channel was found or the channel's ID has not been configured in config.py"
+        )
+
     guild = channel.guild
 
     welcome_message = ext.get_welcome_message()
 
     if welcome_message:
         # message has already been sent to the welcome channel
-        return
+        return logger.info("Welcome message already exists - skipping")
 
     # message has not be sent
     # send message, then update config
@@ -60,3 +67,4 @@ async def send_welcome_message() -> None:
     message = await channel.send(embed=embed, view=ext.StartQuiz())
 
     ext.update_message_sent(message.id)
+    logger.info("Welcome message has been sent to the configured welcome channel.")
