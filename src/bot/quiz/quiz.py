@@ -135,7 +135,7 @@ class Quiz:
             title=f"Welcome to the {tribe.name} Tribe!",
             description=f"The members of this tribe are:\n{tribe.description}",
         )
-        embed.set_image(url=tribe.icon_url)
+        embed.set_thumbnail(url=tribe.icon_url)
         embed.set_footer(
             text="Tweet about your new tribe by following the button below!"
         )
