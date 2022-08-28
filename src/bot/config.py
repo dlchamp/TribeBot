@@ -6,7 +6,7 @@ Contains all configuration data for the bot
 class Config:
 
     # auth tokens for bot gateway
-    bot_token = ""
+    bot_token = "MTAxMzUxNjEzODEzNjczNTk0NA.GPVPpK.Ng3jEjewpdmJsjUIQNyABka5qIe7JxeOaZT-xw"
 
     # base default role for new members assigned with
     # tribe role, Copy role ID and paste between ""
