@@ -10,7 +10,7 @@ class Config:
 
     # base default role for new members assigned with
     # tribe role, Copy role ID and paste between ""
-    default_role_id = ""
+    default_role_id = "1013571298749841418"
 
     # configure this section for the tribes
     # add the ID for each tribes role by replacing the 0000s
@@ -18,22 +18,22 @@ class Config:
     tribes = {
         "Z": {
             "role_id": 00000,
-            "description": "Brave, astronomer/intellects, explorer, traveler, grounded, arrogant",
+            "description": "Brave, astronomer/intellects, explorer, traveler, grounded & arrogant",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
         "P": {
             "role_id": 00000,
-            "description": "Leadership, care, decision making, hunter/resourceful, seamstress, kind, reliant",
+            "description": "Leadership, care, decision making, hunter/resourceful, seamstress, kind & reliant",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
         "B": {
             "role_id": 00000,
-            "description": "Chef, farmer, jolly, confident, funny, weak, hard worker, loyal, fair",
+            "description": "Chef, farmer, jolly, confident, funny, weak, hard worker, loyal & fair",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
         "M": {
             "role_id": 00000,
-            "description": "Clever/witty, curious, observant, fishers, ambitious, adventurous, sneaky",
+            "description": "Clever/witty, curious, observant, fishers, ambitious, adventurous & sneaky",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
     }
