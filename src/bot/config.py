@@ -6,7 +6,7 @@ Contains all configuration data for the bot
 class Config:
 
     # auth tokens for bot gateway
-    bot_token = "MTAxMzUxNjEzODEzNjczNTk0NA.GPVPpK.Ng3jEjewpdmJsjUIQNyABka5qIe7JxeOaZT-xw"
+    bot_token = "MTAxMzUxNjEzODEzNjczNTk0NA.G6qjlw.DSJ2f8yW9xTTlc2w5_QvIvsTsZBv_ZkVimG63U"
 
     # base default role for new members assigned with
     # tribe role, Copy role ID and paste between ""
@@ -42,7 +42,7 @@ class Config:
     # id for the channel where the bot will send the welcome message
     # that includes the button to start the quiz.
     # It wil only send once on first boot up if the message does not already exist
-    welcome_channel_id = ""
+    welcome_channel_id = "1013516771224985663"
 
     # twitter oauth url
     # this is the external url that will be attached to the quiz complete message
