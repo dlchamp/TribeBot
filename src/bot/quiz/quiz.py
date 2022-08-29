@@ -119,12 +119,15 @@ class Quiz:
         # send final message with calculated tribe and external link for twitter oauth
         # to send tweet about your new tribe
         embed = self.create_complete_quiz_embed(tribe)
-        view = disnake.ui.View()
-        view.add_item(
-            disnake.ui.Button(label="Share on Twitter!", url=Config.twitter_oauth_url)
-        )
 
-        await interaction.edit_original_message(embed=embed, view=view)
+        await interaction.edit_original_message(
+            embed=embed,
+            components=[
+                disnake.ui.Button(
+                    label="Share on Twitter!", url=Config.twitter_oauth_url
+                )
+            ],
+        )
 
         # add member to quizzed
         ext.add_quizzed_member(author.id)
