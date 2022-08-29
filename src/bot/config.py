@@ -17,22 +17,22 @@ class Config:
     # you can also update the icon_url for each tribe so that the correct image is attached to the quiz complete embed
     tribes = {
         "Z": {
-            "role_id": 00000,
+            "role_id": 1013571968731201627,
             "description": "Brave, astronomer/intellects, explorer, traveler, grounded & arrogant",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
         "P": {
-            "role_id": 00000,
+            "role_id": 1013572038545391716,
             "description": "Leadership, care, decision making, hunter/resourceful, seamstress, kind & reliant",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
         "B": {
-            "role_id": 00000,
+            "role_id": 1013572070388543628,
             "description": "Chef, farmer, jolly, confident, funny, weak, hard worker, loyal & fair",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
         "M": {
-            "role_id": 00000,
+            "role_id": 1013572109185855688,
             "description": "Clever/witty, curious, observant, fishers, ambitious, adventurous & sneaky",
             "icon_url": "https://cdn.dribbble.com/users/789080/screenshots/4427574/mountain_tribe_icon.jpg",
         },
@@ -46,4 +46,4 @@ class Config:
 
     # twitter oauth url
     # this is the external url that will be attached to the quiz complete message
-    twitter_oauth_url = ""
+    twitter_oauth_url = "https://twitter.com/avgnomad"
