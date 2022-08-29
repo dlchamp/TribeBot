@@ -21,14 +21,35 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from bot import Config, bot, send_welcome_message
+from loguru import logger
+
+from bot import bot
+from bot.config import Config
 
 
 def main(bot):
     """Run the bot"""
-    send_welcome_message.start()
     bot.run(Config.bot_token)
 
 
+def check_config():
+    if Config.bot_token == "":
+        logger.critical("Bot token was not found in config.py")
+
+    if Config.default_role_id == "":
+        logger.critical("Default Role ID was not found in config.py")
+
+    if Config.welcome_channel_id == "":
+        logger.critical("Welcome channel ID was not found in config.py")
+
+    if Config.twitter_oauth_url == "":
+        logger.critical("Twitter oauth url was not found in config.py")
+
+    return any(attr == "" for attr in [Config.__dict__.values()])
+
+
 if __name__ == "__main__":
-    main(bot)
+
+    if check_config():
+        print("Bot configuration check was successful, starting bot...")
+        main(bot)
