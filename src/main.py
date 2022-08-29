@@ -27,29 +27,42 @@ from bot import bot
 from bot.config import Config
 
 
-def main(bot):
-    """Run the bot"""
+def main(bot) -> None:
+    """Bot.run is a blocking method, code defined
+    after will not run until bot is stopped"""
     bot.run(Config.bot_token)
 
 
-def check_config():
+def check_config() -> bool:
+    """Check that all variables in config file have been set (are not empty "")"""
+
+    failed = 0
+
     if Config.bot_token == "":
+        failed += 1
         logger.critical("Bot token was not found in config.py")
 
     if Config.default_role_id == "":
+        failed += 1
         logger.critical("Default Role ID was not found in config.py")
 
     if Config.welcome_channel_id == "":
+        failed += 1
         logger.critical("Welcome channel ID was not found in config.py")
 
     if Config.twitter_oauth_url == "":
+        failed += 1
         logger.critical("Twitter oauth url was not found in config.py")
 
-    return any(attr == "" for attr in [Config.__dict__.values()])
+    return failed == 0
 
 
 if __name__ == "__main__":
 
+    # run pre-check
     if check_config():
-        print("Bot configuration check was successful, starting bot...")
+        logger.success("Pre-run config check passed - Starting bot...")
         main(bot)
+
+    else:
+        logger.warning("Pre-run config check failed - Exiting...")
