@@ -1,4 +1,3 @@
-from calendar import EPOCH
 from typing import Optional
 
 import disnake
@@ -67,13 +66,15 @@ class AdminConfirm(disnake.ui.View):
 
         welcome_channel = await guild.fetch_channel(Config.welcome_channel_id)
 
+        component = disnake.ui.Button(
+            label="Start Quiz",
+            style=disnake.ButtonStyle.primary,
+            custom_id="start_quiz",
+        )
+
         # message doesn't exist, sending new message
         if button.custom_id == "send_new_message":
-            component = disnake.ui.Button(
-                label="Start Quiz",
-                style=disnake.ButtonStyle.primary,
-                custom_id="start_quiz",
-            )
+
             msg = await welcome_channel.send(embed=self.embed, components=[component])
             #  store the welcome message id in config
             ext.update_message_sent(msg.id)
@@ -92,9 +93,12 @@ class AdminConfirm(disnake.ui.View):
             except disnake.NotFound:
                 # error because message was deleted, but not cleared from config's cache
                 # null cache and send error message
-                ext.update_message_sent()
+                msg = await welcome_channel.send(
+                    embed=self.embed, components=[component]
+                )
+                ext.update_message_sent(msg.id)
                 return await self.interaction.edit_original_message(
-                    "It looks like your welcome message was unintentionally deleted.  I've gone ahead and cleared the cache of the old message. Please run the command again to send a message",
+                    "It looks like your welcome message was unintentionally deleted so I sent a new message and updated my local cache.",
                     embed=None,
                     view=self.clear_items(),
                 )
@@ -118,6 +122,35 @@ class Admin(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self) -> None:
         print(f"Extension loaded: {self.qualified_name}")
+
+    @commands.slash_command(name="view_tribe")
+    @commands.has_permissions(administrator=True)
+    async def view_tribe_embed(
+        self, interaction: disnake.ApplicationCommandInteraction, tribe: str
+    ):
+        """View the embed for a specific tribe - used for testing changes
+
+        Parameters
+        ----------
+        tribe: name of the tribe
+        """
+        tribe_short_name = tribe[0]  # just get first letter
+        tribe_info = Config.tribes[tribe_short_name]
+        embed = disnake.Embed(
+            title=f"Welcome to the {tribe} Tribe!",
+            description=f"{tribe_info['summary']}\n\nMembers of the **{tribe}** tribe are found to be:\n> {tribe_info['description']}",
+        )
+        embed.set_thumbnail(url=tribe_info["icon_url"])
+
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+    @view_tribe_embed.autocomplete("tribe")
+    async def command_autocomplete(
+        self, interaction: disnake.AppCommandInteraction, string: str
+    ):
+        string = string.lower()
+        tribes = ["Mira", "Zuberi", "Briar", "Panuk"]
+        return [tribe for tribe in tribes if string in tribe.lower()]
 
     @commands.slash_command(name="update_welcome")
     @commands.has_permissions(administrator=True)
@@ -170,8 +203,9 @@ class Admin(commands.Cog):
         button = interaction.component
 
         if button.custom_id == "start_quiz":
-            quiz = Quiz()
-            quiz.start()
+            await interaction.response.defer()
+            quiz = Quiz(interaction)
+            await quiz.start()
 
     @update_welcome.error
     async def welcome_permission_error(
