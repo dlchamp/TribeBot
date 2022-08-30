@@ -12,3 +12,4 @@ class Tribe:
     description: str
     icon_url: str
     role: Role
+    summary: str
