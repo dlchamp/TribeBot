@@ -68,10 +68,13 @@ class Quiz:
             embed.add_field(
                 name="Answers:",
                 value=f"**A** - {answers[0].split('-')[1]}\n"
-                f"**B** - {answers[1].split('-')[1]}\n"
-                f"**C** - {answers[2].split('-')[1]}\n"
-                f"**D** - {answers[3].split('-')[1]}",
+                f"**B** - {answers[1].split('-')[1].strip()}\n"
+                f"**C** - {answers[2].split('-')[1].strip()}\n"
+                f"**D** - {answers[3].split('-')[1].strip()}",
                 inline=False,
+            )
+            embed.set_thumbnail(
+                url=guild.icon.url if guild.icon else disnake.Embed.Empty
             )
 
             # create the answer buttons for the embedded quiz question
@@ -99,7 +102,7 @@ class Quiz:
                 if str(author.id) in self.answers:
                     del self.answers[str(author.id)]
 
-                return await interaction.edit_original_message(
+                return await response.response.edit_message(
                     content="You took too long to respond. Please answer each question within the 2 minute time limit.",
                     embed=None,
                     view=view.clear_items(),
@@ -120,7 +123,7 @@ class Quiz:
         # to send tweet about your new tribe
         embed = self.create_complete_quiz_embed(tribe)
 
-        await interaction.edit_original_message(
+        await response.response.edit_message(
             embed=embed,
             components=[
                 disnake.ui.Button(
@@ -136,7 +139,7 @@ class Quiz:
         """Creates the embed for when the quiz is completed"""
         embed = disnake.Embed(
             title=f"Welcome to the {tribe.name} Tribe!",
-            description=f"The members of this tribe are:\n{tribe.description}",
+            description=f"{tribe.summary}\n\nMembers of the **{tribe.name}** tribe are found to be:\n> {tribe.description}",
         )
         embed.set_thumbnail(url=tribe.icon_url)
         embed.set_footer(
@@ -151,28 +154,28 @@ class Quiz:
             disnake.ui.Button(
                 label="A",
                 style=disnake.ButtonStyle.primary,
-                custom_id=answers[0].split("-")[0],
+                custom_id=answers[0].split("-")[0].strip(),
             )
         )
         view.add_item(
             disnake.ui.Button(
                 label="B",
                 style=disnake.ButtonStyle.primary,
-                custom_id=answers[1].split("-")[0],
+                custom_id=answers[1].split("-")[0].strip(),
             )
         )
         view.add_item(
             disnake.ui.Button(
                 label="C",
                 style=disnake.ButtonStyle.primary,
-                custom_id=answers[2].split("-")[0],
+                custom_id=answers[2].split("-")[0].strip(),
             )
         )
         view.add_item(
             disnake.ui.Button(
                 label="D",
                 style=disnake.ButtonStyle.primary,
-                custom_id=answers[3].split("-")[0],
+                custom_id=answers[3].split("-")[0].strip(),
             )
         )
 
@@ -218,6 +221,7 @@ class Quiz:
         return Tribe(
             name=top_tribe,
             description=Config.tribes[top_tribe]["description"],
+            summary=Config.tribes[top_tribe]["summary"],
             icon_url=Config.tribes[top_tribe]["icon_url"],
             role=guild.get_role(int(Config.tribes[top_tribe]["role_id"])),
         )
