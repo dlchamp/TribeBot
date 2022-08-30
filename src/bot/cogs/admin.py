@@ -204,7 +204,7 @@ class Admin(commands.Cog):
         member = interaction.author
 
         if button.custom_id == "start_quiz":
-            if member in ext.get_quizzed_members():
+            if member.id in ext.get_quizzed_members():
                 return await interaction.response.send_message(
                     "You have already completed this quiz.", ephemeral=True
                 )
