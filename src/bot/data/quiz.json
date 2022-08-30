@@ -3,120 +3,120 @@
         "id": 1,
         "question": "What is your ideal weather",
         "answers": [
-            "P- snow",
-            "Z- hot sun",
-            "B- rain",
-            "M- warm sun"
+            "Panuk - snow",
+            "Zuberi - hot sun",
+            "Briar - rain",
+            "Mira - warm sun"
         ]
     },
     {
         "id": 2,
         "question": "What would you NOT want to be described as",
         "answers": [
-            "P- mean",
-            "Z- boring",
-            "M- stupid",
-            "B- humourless"
+            "Panuk - mean",
+            "Zuberi - boring",
+            "Mira - stupid",
+            "Briar - humourless"
         ]
     },
     {
         "id": 3,
         "question": "You are stargazing one night, and one constellation draws you to it",
         "answers": [
-            "P- A howling wolf",
-            "Z- a shiny crown",
-            "M- a mysterious mermaid",
-            "B- a tree bearing gold fruit"
+            "Panuk - A howling wolf",
+            "Zuberi - a shiny crown",
+            "Mira - a mysterious mermaid",
+            "Briar - a tree bearing gold fruit"
         ]
     },
     {
         "id": 4,
         "question": "What would you like people to remember you as",
         "answers": [
-            "P- kind",
-            "Z- adventurous",
-            "M- clever",
-            "B- funny"
+            "Panuk - kind",
+            "Zuberi - adventurous",
+            "Mira - clever",
+            "Briar - funny"
         ]
     },
     {
         "id": 5,
         "question": "You are faced with four chests, you only have one key. Which chest do you open",
         "answers": [
-            "P- An icy, blue chest with a snowflake crest incrusted with extraordinarily coloured gemstones",
-            "Z- A golden chest that glows red hot, you have an overbearing feeling that the treasure inside is outofworldly",
-            "M- A soaking wet chest covered in barnacles, starfish and anemones, you faintly hear beautiful singing as you approach it",
-            "B- A chest with vines and branches encasing it, as if the chest itself is a life source, with every step you take the vines recede revealing a glowing keyhole"
+            "Panuk - An icy, blue chest with a snowflake crest incrusted with extraordinarily coloured gemstones",
+            "Zuberi - A golden chest that glows red hot, you have an overbearing feeling that the treasure inside is outofworldly",
+            "Mira - A soaking wet chest covered in barnacles, starfish and anemones, you faintly hear beautiful singing as you approach it",
+            "Briar - A chest with vines and branches encasing it, as if the chest itself is a life source, with every step you take the vines recede revealing a glowing keyhole"
         ]
     },
     {
         "id": 6,
         "question": "You sit down for a delicious meal with your tribe. What\u2019s on the menu",
         "answers": [
-            "P- A hot, spicy stew with warm steamed rice, accompanied by a tangy salad",
-            "Z- A leg of seasoned meat with a bowl of maise and gravy",
-            "M- Citrusy fish with perfectly roasted potatoes",
-            "B- Stir-fried vegetables with homemade noodles, followed by a colourful fruit salad"
+            "Panuk - A hot, spicy stew with warm steamed rice, accompanied by a tangy salad",
+            "Zuberi - A leg of seasoned meat with a bowl of maise and gravy",
+            "Mira - Citrusy fish with perfectly roasted potatoes",
+            "Briar - Stir-fried vegetables with homemade noodles, followed by a colourful fruit salad"
         ]
     },
     {
         "id": 7,
         "question": "You have reached the final battle of your adventure. From your tunic you reveal your weapon",
         "answers": [
-            "P- A wavy, sliver blade with mysterious carvings that seems to be enchanted by an ancient spell",
-            "Z- A powerful bo staff you are able to move so fast you leave a trail of flames",
-            "M- A mighty trident decorated with shells that has been borrowed from Posidon himself",
-            "B- An forbidding syth, its blade dripping with an iridescent liquid you know to be a rare poison"
+            "Panuk - A wavy, sliver blade with mysterious carvings that seems to be enchanted by an ancient spell",
+            "Zuberi - A powerful bo staff you are able to move so fast you leave a trail of flames",
+            "Mira - A mighty trident decorated with shells that has been borrowed from Posidon himself",
+            "Briar - An forbidding syth, its blade dripping with an iridescent liquid you know to be a rare poison"
         ]
     },
     {
         "id": 8,
         "question": "You are required to study an animal. Which do you choose",
         "answers": [
-            "P- canines and werewolves",
-            "Z- camelids and ghosts",
-            "M- felines and merpeople",
-            "B- birds and faries"
+            "Panuk - canines and werewolves",
+            "Zuberi - camelids and ghosts",
+            "Mira - felines and merpeople",
+            "Briar - birds and faries"
         ]
     },
     {
         "id": 9,
         "question": "You heard a rumour that there is a dangerous creature in a nearby cave. Do you",
         "answers": [
-            "P- warn your village, gathering a group and going together to investigate",
-            "Z- immediately investigate on your own with one hand on your weapon at all times",
-            "M- try to intice the beast out of the cave into a trap you built",
-            "B- block the cave entrance with large boulders"
+            "Panuk - warn your village, gathering a group and going together to investigate",
+            "Zuberi - immediately investigate on your own with one hand on your weapon at all times",
+            "Mira - try to intice the beast out of the cave into a trap you built",
+            "Briar - block the cave entrance with large boulders"
         ]
     },
     {
         "id": 10,
         "question": "A seamstress is making you an outfit and asks which colours you would like",
         "answers": [
-            "P- blue/white",
-            "Z- gold/red",
-            "M- teal/silver",
-            "B- green/yellow"
+            "Panuk - blue/white",
+            "Zuberi - gold/red",
+            "Mira - teal/silver",
+            "Briar - green/yellow"
         ]
     },
     {
         "id": 11,
         "question": "You have entered an infamous SolMad casino. Which game do you go to first",
         "answers": [
-            "P- wolf",
-            "Z- oware",
-            "M- go fish",
-            "B- tic tac toe"
+            "Panuk - wolf",
+            "Zuberi - oware",
+            "Mira - go fish",
+            "Briar - tic tac toe"
         ]
     },
     {
         "id": 12,
         "question": "Pick an element",
         "answers": [
-            "P- air",
-            "Z- fire",
-            "M- water",
-            "B- earth"
+            "Panuk - air",
+            "Zuberi - fire",
+            "Mira - water",
+            "Briar - earth"
         ]
     }
 ]
