@@ -21,7 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+import os
+
+from dotenv import load_dotenv
 from loguru import logger
+
+load_dotenv("token.env")
 
 from bot import bot
 from bot.config import Config
@@ -38,9 +43,9 @@ def check_config() -> bool:
 
     failed = 0
 
-    if Config.bot_token == "":
+    if Config.bot_token is None:
         failed += 1
-        logger.critical("Bot token was not found in config.py")
+        logger.critical("Bot token was not found")
 
     if Config.default_role_id == "":
         failed += 1

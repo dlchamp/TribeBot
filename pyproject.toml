@@ -9,6 +9,7 @@ python = "^3.9"
 disnake = "^2.5.2"
 black = "^22.6.0"
 loguru = "^0.6.0"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
