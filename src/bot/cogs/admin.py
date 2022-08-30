@@ -201,8 +201,14 @@ class Admin(commands.Cog):
     @commands.Cog.listener()
     async def on_button_click(self, interaction: disnake.MessageInteraction) -> None:
         button = interaction.component
+        member = interaction.author
 
         if button.custom_id == "start_quiz":
+            if member in ext.get_quizzed_members():
+                return await interaction.response.send_message(
+                    "You have already completed this quiz.", ephemeral=True
+                )
+
             await interaction.response.defer()
             quiz = Quiz(interaction)
             await quiz.start()
