@@ -162,3 +162,5 @@ cython_debug/
 # manual addons
 test.py
 *.env
+src/token.env
+src/token.env
