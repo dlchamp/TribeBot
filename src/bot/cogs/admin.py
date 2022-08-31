@@ -134,8 +134,7 @@ class Admin(commands.Cog):
         ----------
         tribe: name of the tribe
         """
-        tribe_short_name = tribe[0]  # just get first letter
-        tribe_info = Config.tribes[tribe_short_name]
+        tribe_info = Config.tribes[tribe]
         embed = disnake.Embed(
             title=f"Welcome to the {tribe} Tribe!",
             description=f"{tribe_info['summary']}\n\nMembers of the **{tribe}** tribe are found to be:\n> {tribe_info['description']}",
@@ -149,7 +148,7 @@ class Admin(commands.Cog):
         self, interaction: disnake.AppCommandInteraction, string: str
     ):
         string = string.lower()
-        tribes = ["Mira", "Zuberi", "Briar", "Panuk"]
+        tribes = Config.tribes.keys()
         return [tribe for tribe in tribes if string in tribe.lower()]
 
     @commands.slash_command(name="update_welcome")
