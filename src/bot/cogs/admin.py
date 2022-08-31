@@ -159,6 +159,7 @@ class Admin(commands.Cog):
         title: str,
         description: str,
         image: Optional[disnake.Attachment] = None,
+        thumbnail: Optional[disnake.Attachment] = None,
         color: Optional[disnake.Colour] = None,
     ) -> None:
         """Update the welcome message or send the welcome message if not already sent
@@ -175,13 +176,10 @@ class Admin(commands.Cog):
 
         # create the embed
         embed = disnake.Embed(title=title, description=description, color=color)
-        embed.set_thumbnail(
-            url=interaction.guild.icon.url
-            if interaction.guild.icon
-            else disnake.Embed.Empty
-        )
+        if thumbnail:
+            embed.set_thumbnail(url=thumbnail.url)
         if image:
-            embed.set_image(url=image.url or disnake.Embed.Empty)
+            embed.set_image(url=image.url)
 
         view = AdminConfirm(interaction, embed, new=True)
 
@@ -225,3 +223,15 @@ class Admin(commands.Cog):
 
         # raise other errors
         raise error
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member: disnake.Member):
+        """Check if member is in the tribes quiz list and remove their ID"""
+
+        data = ext.load_config()
+        quizzed = data["quizzed"]
+
+        if member.id in quizzed:
+            quizzed.remove(member.id)
+
+        ext.dump_config(data)
